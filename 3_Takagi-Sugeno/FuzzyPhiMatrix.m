@@ -46,7 +46,7 @@ m = n - orden;
 
 %variable auxiliar para calcular el tamaño a priori de la matriz Phi
 sizephi = 1; 
-for i = 1:length(fp)
+for i = 1:length(varargin)
     sizephi = sizephi * length(fp{i});
 end
 sizephi = sizephi*(2 * orden + 1);
@@ -55,12 +55,12 @@ phi = zeros(m, sizephi);
 % pertenencia de cada variable p, pd, alpha, alphad * (2 * orden + 1) que son 
 % los parámetros (1 a1 a2 ... b1 b2 ...) -CASO BALL AND BEAM-
 
-mu = cell(1, length(fp)); %Resultados de aplicar la función Fuzzyfication
+mu = cell(1, length(varargin)); %Resultados de aplicar la función Fuzzyfication
 
 
 for i = (orden+1):n
     
-    for j = 1:length(fp)
+    for j = 1:length(varargin)
         mu(j) = {Fuzzification(varargin{j}(i), fp{j})};
     end
     

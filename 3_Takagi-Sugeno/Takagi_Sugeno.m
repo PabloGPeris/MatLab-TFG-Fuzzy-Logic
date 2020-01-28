@@ -59,7 +59,7 @@ end
 sizephi = sizephi1*(2*orden + 1);
 
 heightphi = 0;
-for i = 1:(length(U))
+for i = 1:length(U)
     if length(U{i}) > orden
         heightphi = heightphi + length(U{i}) - orden;
     end
@@ -74,7 +74,7 @@ inputs = cell(1,length(varargin));
 %% Bucle de phi y anidador de Y
 k1 = 1;
 
-for i = 1:(length(U))
+for i = 1:length(U)
     if length(U{i}) <= orden
         continue;
     end

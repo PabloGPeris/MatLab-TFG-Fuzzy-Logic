@@ -1,4 +1,4 @@
-function res = ControlDiscretoBAB(Yr, Yk)
+function res = ControlDiscreto(Yr, Yk)
 %CONTROLADORDISCRETOBAB Controlador discreto de un sistema
 %   Se usa en ABCLQR
 

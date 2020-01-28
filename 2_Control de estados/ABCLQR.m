@@ -1,8 +1,13 @@
-clear all;
+%% Modelo de Estados discreto con matrices A,B,C y control LQR
+
+
+
+clear;
 close all;
 clc;
 
 addpath('..\Funciones');
+addpath('..\BallAndBeam');
 format shortG;
 
 load('..\1_Identificacion\ResultadosParametros')
@@ -20,15 +25,17 @@ global a b m l; %#ok<NUSED>
 
 param(1)=0;
 
-%% Forma canónica controlable
+%% Espacio de estados
+
+%Forma canónica controlable
 
 %[A, B, C, D, ax, ay] = C_Controlable(param(2:5), param(6:9), 0, 0)
 
-%% Forma canónica observable
+% Forma canónica observable
 
-[A, B, C, D, ax, ay] = C_Observable(param(2:5), param(6:9), 0, 0);
+[A, B, C, ~, ax, ay] = C_Observable(param(2:5), param(6:9), 0, 0);
 
-%% Forma de Jordan
+% Forma de Jordan
 
 % [A, B, C, D, ax, ay] = C_Jordan(param(2:5), param(6:9), 0, 0);
 
@@ -47,47 +54,23 @@ R = 1;
 K = dlqr(A, B, Q, R);
 
 
-%% Simulación - parámetros iniciales
+%% Simulación - parámetros iniciales y matriz M
 
-Yr = 0.1;
+M = inv([(A - eye(size(A))) B ; C 0]);
 
-M1 =  [(A - eye(size(A))) B ; C 0];
-M = inv(M1);
+p0 = 0.1; %equivale p0 a Yr
 
-ttotal = 15;
-tmuestra = 0.05;
-
-%% Condiciones iniciales
-p0 = 0.1;
-alpha0 = 0;
-pd0 = 0;   
-alphad0 = 0;
-
-resul = M*[ -ax ; Yr - ay];
- Xr = resul(1:4)
- Ur = resul(5)
-
-p0_3 = p0 - 3*pd0*tmuestra;
-
-vectorP = zeros(4,1);
-for i = 1:4
-   vectorP(i) = p0_3 + (i-1)*pd0*tmuestra;
-end
-
-vectorP;
-Ob = obsv(A,C);
-
-%X inicial
-Xek2 = A^3*(Ob\vectorP)
-
-Xek = Xr;
+resul = M*[ -ax ; p0 - ay]; 
+Xek = resul(1:4);
 
 
 %% Simulación
+ttotal = 15;
+tmuestra = 0.05;
 
 % Real
-set_param('BallAndBeamControlado/Controlador','MATLABFcn','ControlDiscretoBAB(u(1), u(2))');
-sim('BallAndBeamControlado')
+set_param('..\BallAndBeam\BallAndBeamControlado/Controlador','MATLABFcn','ControlDiscreto(u(1), u(2))');
+sim('..\BallAndBeam\BallAndBeamControlado');
 
 % Lineal
 % Num = param(6:9)';

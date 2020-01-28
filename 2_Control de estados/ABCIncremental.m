@@ -2,7 +2,8 @@ clear all;
 close all;
 clc;
 
-addpath('.\..\Funciones');
+addpath('..\Funciones');
+addpath('..\BallAndBeam');
 format shortG;
 
 load('.\..\1_Identificacion\ResultadosParametros')
@@ -66,8 +67,8 @@ tmuestra = 0.05;
 
 
 %% Simulación
-
-sim('BallAndBeamControlado')
+set_param('..\BallAndBeam\BallAndBeamControlado/Controlador','MATLABFcn','ControlIncremental(u(1), u(2))');
+sim('..\BallAndBeam\BallAndBeamControlado')
 
 
 %% Simulación - gráficas

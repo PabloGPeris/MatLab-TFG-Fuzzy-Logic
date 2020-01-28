@@ -3,6 +3,7 @@ close all;
 clc;
 
 addpath('..\Funciones');
+addpath('..\BallAndBeam');
 
 format shortG;
 
@@ -38,7 +39,7 @@ u(floor(0.77*n):floor(0.84*n), 2) = -0.15;
 u(floor(0.84*n):floor(1*n), 2) = 0.16;
 
 %% Simulación
-sim('BallAndBeam')
+sim('..\BallAndBeam\BallAndBeam')
 
 orden  = 4;
 %% Parámetros

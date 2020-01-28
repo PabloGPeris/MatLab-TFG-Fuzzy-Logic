@@ -3,6 +3,7 @@ close all;
 clc;
 
 addpath('..\Funciones');
+addpath('..\BallAndBeam');
 
 format shortG;
 
@@ -23,7 +24,7 @@ n = length(tiempo);
 
 
 %% Simulación 
-n_sim = 100; %número de simulaciones
+n_sim = 200; %número de simulaciones
 
 u(1:n, 1) = tiempo;
 u(1:floor(0.2*n), 2) = 0;
@@ -34,7 +35,8 @@ cellP = cell(1, n_sim);
 cellPd = cell(1, n_sim);
 cellAlpha = cell(1, n_sim);
 cellAlphad = cell(1, n_sim);
-
+load_system('BallAndBeamTS');
+%Vendría bien aprender a usar el parsim
 for i = 1:n_sim
     
     iseed = randi(2^53-1); %genera número aleatorio entre 1 y el máximo (2^53 - 1)
@@ -43,11 +45,12 @@ for i = 1:n_sim
     
     
     u(1:40, 2) = rand - .5;
-    u(40:120, 2) = rand - .5;
-    u(120:n, 2) = rand - .5;
+    u(41:120, 2) = rand - .5;
+    u(121:160, 2) = rand - .5;
+    u(161:n, 2) = rand - .5;
     sim('BallAndBeamTS');
-    P_rec0 = Recortador(P(:,2),Entrada(:,2), 0, 0.39); % "recorta" la salida antes de la saturación
-    Alpha_rec0 = Recortador(Alpha(:,2),Entrada(:,2), 0, 15*pi/180 - 0.01); % "recorta" la salida antes de la saturación
+    [P_rec0, ~] = Recortador(P(:,2),Entrada(:,2), 0, 0.39); % "recorta" la salida antes de la saturación
+    [Alpha_rec0, ~] = Recortador(Alpha(:,2),Entrada(:,2), 0, 15*pi/180 - 0.01); % "recorta" la salida antes de la saturación
     k = min(length(P_rec0), length(Alpha_rec0));
     % Forma "artificial" de recortar el resto de variables
     U_rec = Entrada(1:k, 2);
@@ -64,17 +67,22 @@ for i = 1:n_sim
     
 end
 
+%% Parámetros
+
 mup = [-.4 -.2 0 .2 .4];
 mupd = [-.25 0 .25];
 mualpha = [-.25 -.15 0 .15 .25];
 mualphad = [-.15 0 .15];
 
+fp = {mup, mupd, mualpha, mualphad};
+
 orden  = 4;
 gamma = 1e-8;
 
-%% Parámetros
+[param, ~] = Takagi_Sugeno(orden, gamma, param, fp, cellU, cellP, cellPd, cellAlpha, cellAlphad);
 
-[param, phi] = Takagi_Sugeno(orden, gamma, param, {mup, mupd, mualpha, mualphad}, cellU, cellP, cellPd, cellAlpha, cellAlphad);
+
+%% Gráficos
 
 disp('FIN');
 
@@ -103,8 +111,10 @@ end
 xlabel('Posición');
 ylabel('Ángulo');
 
+%% Guardado de datos
+
 save ResultadosSimulacionTS cellU cellP cellPd cellAlpha cellAlphad
-save ResultadosParametrosTS param
+save ResultadosParametrosTS param fp
 
 
 

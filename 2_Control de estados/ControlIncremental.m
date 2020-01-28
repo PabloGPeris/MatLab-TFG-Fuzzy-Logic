@@ -1,4 +1,4 @@
-function res = ControlIncrementalBAB(Yr, Yk)
+function res = ControlIncremental(Yr, Yk)
 %CONTROLADORDISCRETOBAB Controlador discreto de un Ball And Beam
 %   Se usa en ABCLQR
 

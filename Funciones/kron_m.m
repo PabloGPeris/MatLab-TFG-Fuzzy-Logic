@@ -4,11 +4,10 @@ function K = kron_m(varargin)
 %   Retorna el producto tensioral de Kroneker de los argumentos
 %
 %   K = A1 (x) A2 (x) ... (x) An
-l = length(varargin);
 
 K = varargin{1};
 
-for i=2:l
+for i=2:nargin
     K=kron(K, varargin{i});
 end
 end
