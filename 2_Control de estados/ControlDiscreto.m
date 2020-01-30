@@ -16,9 +16,14 @@ Uk = real(Ur - K * (Xek - Xr));
 %Y estimada
 Ye = ay + C*Xek;
 
-% Xek = ax + A*Xek +B*Uk;
-%
 Xek = ax + A*Xek + B*Uk + H*(Yk - Ye);
+
+
+% fprintf('Xek = [%f %f %f %f], Uk = %f\n]', Xek(1), Xek(2), Xek(3), Xek(4), Uk);
+% if Yr ~= 0
+%        fprintf('Yr = %f ', Yr);
+% end
+
 
 %% Error
 error_obs = Yk - Ye;

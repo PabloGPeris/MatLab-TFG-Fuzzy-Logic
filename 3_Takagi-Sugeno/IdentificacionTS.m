@@ -24,7 +24,7 @@ n = length(tiempo);
 
 
 %% Simulación 
-n_sim = 200; %número de simulaciones
+n_sim = 10000; %número de simulaciones
 
 u(1:n, 1) = tiempo;
 u(1:floor(0.2*n), 2) = 0;

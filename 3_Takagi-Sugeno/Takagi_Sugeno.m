@@ -79,7 +79,7 @@ for i = 1:length(U)
         continue;
     end
     
-    for j = 1:length(varargin)
+    parfor j = 1:length(varargin)
         inputs(j) = varargin{j}(i);
     end
     

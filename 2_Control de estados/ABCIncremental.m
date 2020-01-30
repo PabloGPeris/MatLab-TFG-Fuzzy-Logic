@@ -31,7 +31,7 @@ global a b m l; %#ok<NUSED>
 
 %% Incremental
 
-A_ = [1 C*A; zeros(legnth(A),1) A];
+A_ = [1 C*A; zeros(length(A),1) A];
 B_ = [C*B; B];
 %C innecesaria
 %C_ = [1 zeros(1,size(A,1))];
@@ -54,7 +54,7 @@ K = dlqr(A_, B_, Q, R);
 
 %% Simulación - parámetros iniciales
 
-set_param('BallAndBeamControlado/Controlador','MATLABFcn','ControlIncrementalBAB(u(1), u(2))');
+p0 = 0;
 Yr = 0.05;
 
 DeltaXek = [0; 0; 0; 0];
@@ -67,8 +67,9 @@ tmuestra = 0.05;
 
 
 %% Simulación
-set_param('..\BallAndBeam\BallAndBeamControlado/Controlador','MATLABFcn','ControlIncremental(u(1), u(2))');
-sim('..\BallAndBeam\BallAndBeamControlado')
+load_system('BallAndBeamControlado');
+set_param('BallAndBeamControlado/Controlador','MATLABFcn','ControlIncremental(u(1), u(2))');
+sim('BallAndBeamControlado')
 
 
 %% Simulación - gráficas

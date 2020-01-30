@@ -61,7 +61,7 @@ mu = cell(1, length(varargin)); %Resultados de aplicar la función Fuzzyfication
 for i = (orden+1):n
     
     for j = 1:length(varargin)
-        mu(j) = {Fuzzification(varargin{j}(i), fp{j})};
+        mu{j} = Fuzzification(varargin{j}(i), fp{j}); 
     end
     
     w = kron_m(mu{:});

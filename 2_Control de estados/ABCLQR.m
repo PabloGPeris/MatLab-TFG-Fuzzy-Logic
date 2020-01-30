@@ -55,10 +55,10 @@ K = dlqr(A, B, Q, R);
 
 
 %% Simulación - parámetros iniciales y matriz M
+M1 = [(A - eye(size(A))) B ; C 0];
+M = inv(M1);
 
-M = inv([(A - eye(size(A))) B ; C 0]);
-
-p0 = 0.1; %equivale p0 a Yr
+p0 = 0; %equivale p0 a Yr para el cálculo de Xek0
 
 resul = M*[ -ax ; p0 - ay]; 
 Xek = resul(1:4);
@@ -67,10 +67,11 @@ Xek = resul(1:4);
 %% Simulación
 ttotal = 15;
 tmuestra = 0.05;
-
+Yr = 0.1;
 % Real
-set_param('..\BallAndBeam\BallAndBeamControlado/Controlador','MATLABFcn','ControlDiscreto(u(1), u(2))');
-sim('..\BallAndBeam\BallAndBeamControlado');
+load_system('BallAndBeamControlado');
+set_param('BallAndBeamControlado/Controlador','MATLABFcn','ControlDiscreto(u(1), u(2))');
+sim('BallAndBeamControlado');
 
 % Lineal
 % Num = param(6:9)';
