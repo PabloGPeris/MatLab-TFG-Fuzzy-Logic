@@ -9,7 +9,10 @@ addpath('..\BallAndBeam');
 format shortG;
 
 % load('ResultadosParametrosTS')
-load('ResultadosParametrosTS2')
+% load('ResultadosParametrosTS2')
+% el 2 tiene a0
+load('ResultadosParametrosTS3')
+% el 3 no tiene a0
 load('..\1_Identificacion\Parametros');
 
 
@@ -34,18 +37,22 @@ K = cell(1,N);%realimentación LQR
 ax = cell(1,N);
 ay = cell(1,N);
 M = cell(1,N);
-Xek = cell(1,N);
+% Xek = cell(1,N);
 
 % Algunos parámetros
 Q = 10*eye(orden);
-R = 10;
+R = 1;
 
 
 for i=1:N
     %% Forma canónica observable
-    index = (i-1)*(2 * orden + 1); %variable auxiliar
-    [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 2:index + 1 + orden), param(index + 2 + orden:index + 1 + 2*orden), param(index + 1), 0);
-      
+    % con a0
+%     index = (i-1)*(2 * orden + 1); %variable auxiliar
+%     [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 2:index + 1 + orden), param(index + 2 + orden:index + 1 + 2*orden), param(index + 1), 0);
+    
+    % sin 10
+    index = (i-1)*(2 * orden); %variable auxiliar    
+    [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 1:index + orden), param(index + 1 + orden:index  + 2*orden), 0, 0);
 
     %% Observador
     H{i} = A{i}/C{i};
@@ -58,11 +65,12 @@ for i=1:N
     M{i} = inv(M1);
 
     resul = M{i}*[ -ax{i} ; 0 - ay{i}]; 
-    Xek{i} = resul(1:4);
+%     Xek{i} = resul(1:4);
+
     
 end
 
-% Xek = zeros(orden, 1);
+Xek = zeros(orden, 1);
 
 % [A{113}, B{113}, C{113}, ~, ax{113}, ay{113}] = C_Observable(param(2:5), param(6:9), 0, 0);
 
@@ -82,7 +90,7 @@ end
 %% Simulación
 ttotal = 10;
 tmuestra = 0.05;
-Yr = 0.1;
+Yr = 0.2;
 
 % Real
 load_system('BallAndBeamControladoTS');

@@ -1,5 +1,5 @@
-function [param, phi, yr] = Takagi_Sugeno(orden, gamma, linearparam, fp, U, varargin)
-%TAKAGI_SUGENO(orden, gamma, linearparam, {fpY fp1 ... fpm}, {U1 ... Un}, {Y1 ... Yn}, {Vb11 ... Vb1n}, ..., {Vbm1 ... Vbmn})
+function [param, phi, yr] = Takagi_Sugeno_sin_a0(orden, gamma, linearparam, fp, U, varargin)
+%TAKAGI_SUGENO_SIN_A0(orden, gamma, linearparam, {fpY fp1 ... fpm}, {U1 ... Un}, {Y1 ... Yn}, {Vb11 ... Vb1n}, ..., {Vbm1 ... Vbmn})
 %   Mínimos cuadrados de un sistema discreto Ball and Beam de una ecuación
 %   en diferencias
 %
@@ -12,9 +12,9 @@ function [param, phi, yr] = Takagi_Sugeno(orden, gamma, linearparam, fp, U, vara
 %   borrosas a considerar, en vectores [vbi(1) ... vbi(n)]', definidas en
 %   funciones de pertenencia según fp1, fp2, ..., fpm.
 %   Devuelve los parámetros a0, a1 ... ao,  b1, b2 ... bo (param).
-%   Y devuelve la matriz phi (x) formada por los valores [ beta1...1(1 y(o) 
-%   y(n-1) ... y(1) u(o) ... u(1)) beta1...2(1 y(o) y(n-1) ... y(1) u(o) 
-%   ... u(1))]; 1 y(o+1) y(o) ... y(2) u(o) ... u(2); ... ; 1 y(n-1) y(n-2)
+%   Y devuelve la matriz phi (x) formada por los valores [ beta1...1(y(o) 
+%   y(n-1) ... y(1) u(o) ... u(1)) beta1...2(y(o) y(n-1) ... y(1) u(o) 
+%   ... u(1))]; y(o+1) y(o) ... y(2) u(o) ... u(2); ... ; y(n-1) y(n-2)
 %   ... y(n - o) u(n-1) ... u(n-o). Se considera en este caso que beta = w 
 %   (peso).
 %   linearparam son los parámetros lineales anteriores
@@ -45,7 +45,7 @@ elseif ~iscolumn(linearparam)
     error('linearparam debe ser vector');
 end
 
-if length(linearparam) ~= 2*orden + 1
+if length(linearparam) ~= 2*orden
     error('La longitud de linearparam debe ser 2*orden + 1');
 end
 
@@ -56,7 +56,7 @@ widthphi1 = 1; %variable auxiliar
 for i = 1:length(fp)
     widthphi1 = widthphi1 * length(fp{i});
 end
-widthphi = widthphi1*(2*orden + 1);
+widthphi = widthphi1*(2*orden);
 
 heightphi = 0;
 for i = 1:length(U)
@@ -85,7 +85,7 @@ for i = 1:length(U)
     
     k2 = k1 + length(U{i}) - orden - 1;
     
-    phi(k1:k2,:) = FuzzyPhiMatrix(orden, fp, U{i}, inputs{:}); % anida diversas matrices phi borrosas
+    phi(k1:k2,:) = FuzzyPhiMatrix_sin_a0(orden, fp, U{i}, inputs{:}); % anida diversas matrices phi borrosas
     yr(k1:k2,1) = varargin{1}{i}(orden + 1 : end); % anida las salidas Y = Vari{n*j + 1
     k1 = k2 + 1;
 end

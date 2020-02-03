@@ -24,7 +24,7 @@ n = length(tiempo);
 
 
 %% Simulación 
-n_sim = 10000; %número de simulaciones
+n_sim = 100; %número de simulaciones
 
 u(1:n, 1) = tiempo;
 u(1:floor(0.2*n), 2) = 0;
@@ -113,8 +113,8 @@ ylabel('Ángulo');
 
 %% Guardado de datos
 
-save ResultadosSimulacionTS cellU cellP cellPd cellAlpha cellAlphad
-save ResultadosParametrosTS param fp
+save ResultadosSimulacionTS2 cellU cellP cellPd cellAlpha cellAlphad
+save ResultadosParametrosTS3 param fp
 
 
 

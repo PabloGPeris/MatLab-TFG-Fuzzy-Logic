@@ -7,7 +7,7 @@ function phi = PhiMatrix(Y, U, orden)
 %   ... y(n)]' y U = [u(1) ... u(n)]'. Devuelve la matriz phi formada por
 %   los valores [ 1 y(o) y(n-1) ... y(1) u(o) ... u(1) ; 1 y(o+1) y(o) ...
 %   y(2) u(o) ... u(2); ... ; 1 y(n-1) y(n-2) ... y(n - o) u(n-1) ...
-%   u(n-o). No tiene sistema de seguridad, se da por hecho en la fucnión
+%   u(n-o). No tiene sistema de seguridad, se da por hecho en la función
 %   MinCuadrados o similar.
 
 n = length(Y);

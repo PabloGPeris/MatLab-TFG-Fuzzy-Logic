@@ -1,8 +1,8 @@
-function phi = FuzzyPhiMatrix(orden, fp, U, varargin)
-%   FUZZYPHIMATRIX(orden, {fpY fp1 ... fpm}, U, Y, Vb1, ..., Vbm )
+function phi = FuzzyPhiMatrix_sin_a0(orden, fp, U, varargin)
+%   FUZZYPHIMATRIX_SIN_A0(orden, {fpY fp1 ... fpm}, U, Y, Vb1, ..., Vbm )
 %   Matriz Phi (X) Borrosa del Takagi-Sugeno
 %
-%   Ecuación del tipo y(k) = a0 + a1y(k-1) + ... + aoy(k-o) + b1u(k-1) +
+%   Ecuación del tipo y(k) = a1y(k-1) + ... + aoy(k-o) + b1u(k-1) +
 %   ... + bou(k-o), donde o es el orden del sistema. Y es el vector [y(1)
 %   ... y(n)]' y U = [u(1) ... u(n)]'. fpY define la función de pertenencia
 %   de la variable borrosa Y. Vb1, Vb2, ... Vbm son las otras variables
@@ -52,7 +52,7 @@ sizephi = 1;
 for i = 1:length(varargin)
     sizephi = sizephi * length(fp{i});
 end
-sizephi = sizephi*(2 * orden + 1);
+sizephi = sizephi*(2 * orden);
 phi = zeros(m, sizephi);
 % sizephi debería ser 5*3*5*3*9, el producto de todas las zonas / regiones de
 % pertenencia de cada variable p, pd, alpha, alphad * (2 * orden + 1) que son 
@@ -71,7 +71,7 @@ for i = (orden+1):n
     % kron_m es una función que me he inventado para poder anidar varios
     % productos tensoriales de Kronecker (kron(...)) fácilmente
     % el peso w coincide con beta ya que la suma de los pesos es 1
-    row = [1 varargin{1}(i-1:-1:i-orden)' U(i-1:-1:i-orden)']; % fila de 1 p(k - 1) p(k - 2) ... u(k - 1) u(k - 2) ...
+    row = [varargin{1}(i-1:-1:i-orden)' U(i-1:-1:i-orden)']; % fila de 1 p(k - 1) p(k - 2) ... u(k - 1) u(k - 2) ...
     phi(i - orden,:)=kron(w,row);
     
 end
