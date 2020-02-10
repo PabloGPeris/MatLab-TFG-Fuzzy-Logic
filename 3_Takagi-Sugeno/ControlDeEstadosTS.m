@@ -47,12 +47,12 @@ R = 1;
 for i=1:N
     %% Forma canónica observable
     % con a0
-%     index = (i-1)*(2 * orden + 1); %variable auxiliar
-%     [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 2:index + 1 + orden), param(index + 2 + orden:index + 1 + 2*orden), param(index + 1), 0);
+    index = (i-1)*(2 * orden + 1); %variable auxiliar
+    [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 2:index + 1 + orden), param(index + 2 + orden:index + 1 + 2*orden), param(index + 1), 0);
     
-    % sin 10
-    index = (i-1)*(2 * orden); %variable auxiliar    
-    [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 1:index + orden), param(index + 1 + orden:index  + 2*orden), 0, 0);
+    % sin a0
+%     index = (i-1)*(2 * orden); %variable auxiliar    
+%     [A{i}, B{i}, C{i}, ~, ax{i}, ay{i}] = C_Observable(param(index + 1:index + orden), param(index + 1 + orden:index  + 2*orden), 0, 0);
 
     %% Observador
     H{i} = A{i}/C{i};
@@ -90,7 +90,7 @@ Xek = zeros(orden, 1);
 %% Simulación
 ttotal = 10;
 tmuestra = 0.05;
-Yr = 0.2;
+Yr = 0.1;
 
 % Real
 load_system('BallAndBeamControladoTS');
@@ -100,6 +100,6 @@ sim('BallAndBeamControladoTS')
 %% Simulación - gráficas
 tiempo = 0:tmuestra:ttotal;
 %figure; plot(tiempo, lqrError(:,2)); title('Error');
-figure; plot(tiempo, lqrU(:, 2), tiempo, lqrYr(:,2)); title('Entrada');
-figure; plot(tiempo, lqrAlpha(:, 2), tiempo, lqrYr(:,2)); title('Alpha');
+figure; plot(tiempo, lqrU(:, 2)); title('Entrada');
+figure; plot(tiempo, lqrAlpha(:, 2)); title('Alpha');
 figure; plot(tiempo, lqrX(:, 2), tiempo, lqrYr(:,2)); title('Posición');

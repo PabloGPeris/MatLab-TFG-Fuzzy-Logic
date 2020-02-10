@@ -1,4 +1,4 @@
-function [param, phi, Yr] = MinCuadrados(orden, Y, U)
+function [param, phi, Yr] = MinCuadrados(orden, U, Y)
 %MINCUADRADOS(orden, Y, U)
 %   Mínimos cuadrados de un sistema discreto de una ecuación en diferencias
 %
@@ -27,7 +27,7 @@ end
 
 %Hacer la matriz phi y los parámetros
 n = size(Y, 1);
-phi = PhiMatrix(Y, U, orden);
+phi = PhiMatrix(Y, Y, orden);
 Yr = Y(orden + 1 : n);
 
 param = phi\Yr;

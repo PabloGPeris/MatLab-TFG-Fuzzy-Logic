@@ -44,6 +44,7 @@ Xr = resul(1:orden);
 Ur = resul(orden + 1);
 
 %% Controlador
+Kf = dlqr(Af, Bf, 10*eye(4), 1);
 Uk = real(Ur - Kf * (Xek - Xr));
 
 %% Observador de estado

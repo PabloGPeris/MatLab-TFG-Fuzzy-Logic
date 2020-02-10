@@ -1,4 +1,4 @@
-function [param, phi, Yr] = MinCuadradosMultiple(orden, varargin)
+function [param, phi, Yr] = MinCuadradosMultiple(orden, U, Y)
 %MINCUADRADOSMULTIPLE(orden, {U1, ..., Un}, {Y1, ..., Yn})
 %   Mínimos cuadrados de un sistema discreto de una ecuación en diferencias
 %
@@ -16,12 +16,6 @@ function [param, phi, Yr] = MinCuadradosMultiple(orden, varargin)
 %   U1, Y2, U2, ..., Yn, Un.
 
 %% Errores
-if nargin ~= 3
-    error('Deben pasarse 3 argumentos');
-end
-
-U = varargin{1};
-Y = varargin{2};
 
 if ~iscell(Y)
     error('Y debe pasarse en formato cell');
@@ -68,7 +62,7 @@ for i = 1:n
     end
     k2 = k1 + length(U{i}) - orden - 1;
     % Mejorable
-    phi(k1:k2,:) = PhiMatrix(Y{i}, U{i}, orden);
+    phi(k1:k2,:) = PhiMatrix(U{i}, Y{i}, orden);
     Yr(k1:k2,:) = Y{i}(orden + 1 : end);
     k1 = k2 + 1;
 end

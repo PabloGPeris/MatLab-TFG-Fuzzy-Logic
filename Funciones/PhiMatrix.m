@@ -1,4 +1,4 @@
-function phi = PhiMatrix(Y, U, orden)
+function phi = PhiMatrix(U, Y, orden)
 %PHIMATRIX(Y, U, orden)
 %   Matriz Phi de los mínimos cuadrados
 %

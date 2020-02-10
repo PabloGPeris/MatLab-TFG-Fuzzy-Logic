@@ -17,7 +17,7 @@ function [param, phi, yr] = Takagi_Sugeno(orden, gamma, linearparam, fp, U, vara
 %   ... u(1))]; 1 y(o+1) y(o) ... y(2) u(o) ... u(2); ... ; 1 y(n-1) y(n-2)
 %   ... y(n - o) u(n-1) ... u(n-o). Se considera en este caso que beta = w 
 %   (peso).
-%   linearparam son los parámetros lineales anteriores
+%   linearparam son los parámetros lineales anteriores-
 
 %% Comprobación de errores
 if ~iscell(fp)
@@ -90,15 +90,25 @@ for i = 1:length(U)
     k1 = k2 + 1;
 end
 
-
-yr(k1:end,:) = kron(ones(widthphi1,1), linearparam)*gamma; % añade 0's a las salidas yr (debería poner lo de que sean los parámetros lineales, lo sé)
-%ver repmat
-phi(k1:end,:) = eye(widthphi)*gamma; 
+%% Parte final de la matriz (gamma)
+if isscalar(gamma)
+    yr(k1:end,:) = repmat(linearparam * gamma, widthphi1, 1);
+    phi(k1:end,:) = eye(widthphi)*gamma;
+elseif isvector(gamma)
+    if isrow(gamma)
+        gamma = gamma';
+    end
+    yr(k1:end,:) = kron(gamma, linearparam); % añade 0's a las salidas yr (debería poner lo de que sean los parámetros lineales, lo sé)
+    %ver repmat
+    phi(k1:end,:) = diag(kron(ones(widthphi1,1).*gamma, ones(2*orden,1))); 
+else
+    error('Gamma debe ser un escalar o un vector');
+end
     
 % Calcula los parámetros
 param = phi\yr; 
     
-    %% Error cometido
-    err = yr - phi * param;
-    fprintf('Error = %d\n', sqrt(mse(err)));
+%% Error cometido
+err = yr - phi * param;
+fprintf('Error = %d\n', sqrt(mse(err)));
 end
