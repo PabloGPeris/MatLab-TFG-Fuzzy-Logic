@@ -3,7 +3,7 @@ function Uk = ControlBorrosoLQR(Yr, fp, varargin)
 %	Controlador discreto de un sistema
 % Se usa en control de estados borrosos
 
-global A B C K H ax ay M Xek;
+global A B C K H ax ay M Xek Q R;
 
 N = length(A);
 orden = length(A{1});
@@ -44,7 +44,7 @@ Xr = resul(1:orden);
 Ur = resul(orden + 1);
 
 %% Controlador
-Kf = dlqr(Af, Bf, 10*eye(4), 1);
+% Kf = dlqr(Af, Bf, Q, R);
 Uk = real(Ur - Kf * (Xek - Xr));
 
 %% Observador de estado

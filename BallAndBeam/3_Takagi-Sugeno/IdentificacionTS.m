@@ -16,7 +16,7 @@ global a b m l; %#ok<NUSED>
 
 %% Tiempos y todo eso
 ttotal = 10;
-tmuestra = 0.05;
+tmuestra = 0.02;
 var = 0.001; %Varianza
 
 tiempo = (0:tmuestra:ttotal)';
@@ -113,8 +113,8 @@ ylabel('Ángulo');
 
 %% Guardado de datos
 
-save ResultadosSimulacionTS2 cellU cellP cellPd cellAlpha cellAlphad
-save ResultadosParametrosTS3 param fp
+save ResultadosSimulacionTS_HF cellU cellP cellPd cellAlpha cellAlphad
+save ResultadosParametrosTS_HF param fp
 
 
 

@@ -24,7 +24,7 @@ l = 0.49;
 
 %% Tiempos y todo eso
 ttotal = 10;
-tmuestra = 0.05;
+tmuestra = 0.01;
 var = 0.00001; %Varianza
 
 tiempo = (0:tmuestra:ttotal)';

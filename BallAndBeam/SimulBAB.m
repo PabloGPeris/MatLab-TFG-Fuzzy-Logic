@@ -1,5 +1,6 @@
 function respuesta = SimulBAB(u, x, alpha, xd, alphad)
 %SIMULBAB
+
 global a b m l;
 
 
