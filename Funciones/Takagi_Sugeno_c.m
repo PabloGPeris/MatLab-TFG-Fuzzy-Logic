@@ -1,7 +1,6 @@
 function [param, phi, yr] = Takagi_Sugeno_c(orden, c, linearparam, fp, U, varargin)
 %TAKAGI_SUGENO(orden, gamma, linearparam, {fpY fp1 ... fpm}, {U1 ... Un}, {Y1 ... Yn}, {Vb11 ... Vb1n}, ..., {Vbm1 ... Vbmn})
-%   Mínimos cuadrados de un sistema discreto Ball and Beam de una ecuación
-%   en diferencias
+%   Mínimos cuadrados de un sistema discreto de una ecuación en diferencias
 %
 %   m es el número de variables borrosas sin contar la salida
 %

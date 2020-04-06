@@ -10,7 +10,7 @@ function [A, B, C, D, ax, ay] = C_Observable_MISO(a, b, a0, b0)
 
 if length(a) ~= length (b)
     err('a y b deben coincidir en dimensión');
-    return
+    return7
 elseif ~isscalar(a0)
     err('a0 debe ser un escalar (Considere introducir un 0)');
 end
