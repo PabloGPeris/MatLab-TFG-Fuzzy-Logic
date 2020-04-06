@@ -1,13 +1,15 @@
-function res = ControlDiscreto(Yr, Yk)
-%CONTROLADORDISCRETOBAB Controlador discreto de un sistema
-%   Se usa en ABCLQR
+function output = ControlDiscretoRealimentado(Yr, Yk)
+%CONTROLADORDISCRETOREALIMENTADO Controlador discreto de un sistema
+%   
 
 global A B C K H ax ay M Xek;
 
+
+
 %% Referencia
 resul = M*[ -ax ; Yr - ay];
-Xr = resul(1:4);
-Ur = resul(5);
+Xr = resul(1:size(A));
+Ur = resul(size(A) + 1:end);
 
 %% Controlador
 Uk = real(Ur - K * (Xek - Xr));
@@ -19,11 +21,12 @@ Ye = ay + C*Xek;
 Xek = ax + A*Xek + B*Uk + H*(Yk - Ye);
 
 
-
-
-
 %% Error
 error_obs = Yk - Ye;
 
-res = [ Uk , error_obs ];
+Yk
+Uk
+
+
+output = [Uk; error_obs];
 end

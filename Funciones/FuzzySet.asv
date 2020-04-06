@@ -10,8 +10,7 @@ classdef FuzzySet
     methods
         function obj = FuzzySet(varargin)
             %FUZZYSET(t1,v1, ...tn,vn) Constructor de FuzzySet
-            %   t es el tipo de función
-            %   'L' = función L "Ele"
+            %   Detailed explanation goes here
             if  mod(nargin, 2) ~= 0
                 error('Debe haber múltiplo de 2 argumentos');
             elseif nargin < 4
@@ -131,5 +130,3 @@ function outputArg = Pi_function(vertex, inputArg)
         (vertex(4) - vertex(3));
     end
 end
-
-function outputArg = 

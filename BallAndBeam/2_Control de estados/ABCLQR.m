@@ -6,8 +6,8 @@ clear;
 close all;
 clc;
 
-addpath('..\Funciones');
-addpath('..\BallAndBeam');
+addpath('..\..\Funciones');
+addpath('..\');
 format shortG;
 
 load('..\1_Identificacion\ResultadosParametros')

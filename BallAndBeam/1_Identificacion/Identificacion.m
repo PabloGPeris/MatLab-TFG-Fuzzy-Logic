@@ -2,7 +2,7 @@ clearvars;
 close all;
 clc;
 
-addpath('..\Funciones');
+addpath('..\..\Funciones');
 addpath('..\BallAndBeam');
 
 format shortG;
