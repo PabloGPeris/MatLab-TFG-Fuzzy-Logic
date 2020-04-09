@@ -11,10 +11,36 @@ classdef FuzzySet
         function obj = FuzzySet(varargin)
             %FUZZYSET(t1,v1, ...tn,vn) Constructor de FuzzySet
             %   t es el tipo de función
-            %   'L' = función L "Ele"
+            %   L - 'L'
+            % ______
+            %       \
+            %        \
+            %         \______
+            %   Gamma - 'G'
+            %          ______
+            %         /
+            %        /
+            % ______/
+            %   Delta - 'D'
+            %        /\
+            %       /  \
+            % _____/    \_____
+            %   Pi - 'P'
+            %       ____
+            %      /    \
+            %     /      \
+            % ___/        \___
+            %   No borroso - '-'
+            %
+            %__________________
+            %   
+            %   v son los vértices asociados, de dimensiones:
+            %   1 para L, Gamma y Delta
+            %   2 para Pi
+            %   Indiferente para no borroso
             if  mod(nargin, 2) ~= 0
                 error('Debe haber múltiplo de 2 argumentos');
-            elseif nargin < 4
+            elseif nargin < 2
                 error('Argumentos insuficientes');
             end
             obj.vertex = zeros(1, nargin/2);
@@ -26,8 +52,11 @@ classdef FuzzySet
                 elseif obj.func(i).type == 'P'
                     obj.vertex(i) = (varargin{2*i}(2) + varargin{2*i}(1))/2;
                     obj.func(i).width = (varargin{2*i}(2) - varargin{2*i}(1))/2;
+                elseif obj.func(i).type == '-'
+                    obj.vertex(i) = 0;
+                    obj.func(i).width = 0;
                 else 
-                    error('Función de pertenencia no reconocida; se reconocen L, G, D, P');
+                    error('Función de pertenencia no reconocida; se reconocen L, G, D, P, -');
                 end
             end
         end
@@ -46,10 +75,16 @@ classdef FuzzySet
                     outputArg(i) = Delta_function([obj.vertex(i-1)+obj.func(i-1).width, obj.vertex(i), obj.vertex(i+1)-obj.func(i+1).width], inputArg);
                 case 'P'
                     outputArg(i) = Pi_function([obj.vertex(i-1)+obj.func(i-1).width, obj.vertex(i)-obj.func(i).width, obj.vertex(i)+obj.func(i).width, obj.vertex(i+1)-obj.func(i+1).width], inputArg);
+                case '-'
+                    outputArg(i) = 1; %No hay función borrosa
                 otherwise
                     error('Error al reconocer funciones borrosas');                                                
                 end
             end
+        end
+        
+        function outputArg = FSLength(obj)
+           outputArg = length(obj.vertex);
         end
     end
     
@@ -57,8 +92,10 @@ classdef FuzzySet
     	function outputArg = format(varargin)
             %FUZZYSET Constructor de FuzzySet
             %   Detailed explanation goes here 
-            if nargin < 2
-                error('Vértices insuficientes');
+            if nargin == 1
+                outputArg{1} = '-';
+                outputArg{2} = 0;
+                return;
             end
             outputArg = cell(1, 2*nargin);
             outputArg{1} = 'L';
@@ -132,4 +169,3 @@ function outputArg = Pi_function(vertex, inputArg)
     end
 end
 
-function outputArg = 

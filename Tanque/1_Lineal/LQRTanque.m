@@ -1,4 +1,4 @@
-%% 4 LQRTanque
+%% 4 LQR Tanque (Control discreto LQR y observador de estado)
 
 clearvars
 clc
@@ -49,7 +49,7 @@ tmuestra = 0.5;
 ParametrosTanque;
 
 
-Yr = [5; 67];
+Yr = [5; 67] %#ok<*NOPTS>
 
 % Real
 load_system('SimulacionTanqueControlado');

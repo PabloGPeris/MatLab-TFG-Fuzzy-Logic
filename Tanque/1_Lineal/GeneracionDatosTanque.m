@@ -1,4 +1,4 @@
-%% 1 GeneraciónDatosTanqueTS
+%% 1 Generación Datos Tanque (Solo una simulación)
 
 clearvars
 clc
@@ -17,13 +17,15 @@ tvar2 = 24;
 
 ParametrosTanque
 
+seed = randi(1,4);
 %% Simulación
 load_system('SimulacionTanque');
 sim('SimulacionTanque');
 
-save datosGeneracionTS U1 U2 Qm T
+save datosGeneracion U1 U2 Qm T
 
 %% Simulación - gráficas
 tiempo = 0:tmuestra:tsim;
-figure; plot(tiempo, Qm(:, 2), tiempo, Q1(:,2), tiempo, Q2(:,2)); title('Caudal');
+figure; plot(tiempo, Qm(:, 2), tiempo, U1(:,2), tiempo, U2(:,2)); title('Caudal');
 figure; plot(tiempo, T(:, 2)); title('Temperatura');
+

@@ -1,5 +1,5 @@
 function phi = PhiMatrix(U, Y, orden)
-%PHIMATRIX(Y, U, orden)
+%PHIMATRIX(U, Y, orden)
 %   Matriz Phi de los mínimos cuadrados
 %
 %   Ecuación del tipo y(k) = a0 + a1y(k-1) + ... + aoy(k-o) + b1u(k-1) +

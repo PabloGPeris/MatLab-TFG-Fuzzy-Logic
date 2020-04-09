@@ -1,6 +1,6 @@
-function output = ControlDiscretoRealimentado(Yr, Yk)
+function output = ControlDiscretoRealimentado(Yr, Yk, Sat)
 %CONTROLADORDISCRETOREALIMENTADO Controlador discreto de un sistema
-%   
+%   Sat = [U1min U1max; ...; Unmin Unmax]
 
 global A B C K H ax ay M Xek;
 
@@ -9,24 +9,33 @@ global A B C K H ax ay M Xek;
 %% Referencia
 resul = M*[ -ax ; Yr - ay];
 Xr = resul(1:size(A));
-Ur = resul(size(A) + 1:end);
+Ur = real(resul(size(A) + 1:end));
 
 %% Controlador
 Uk = real(Ur - K * (Xek - Xr));
 
+for i = 1:length(Uk)
+    if Uk(i) < Sat(i,1)
+        Uk(i) = Sat(i,1);
+    end
+end
+
+for i = 1:length(Uk)
+    if Uk(i) > Sat(i,2)
+        Uk(i) = Sat(i,2);
+    end
+end
+
 %% Observador de estado
 %Y estimada
-Ye = ay + C*Xek;
+Ye = real(ay + C*Xek);
+
 
 Xek = ax + A*Xek + B*Uk + H*(Yk - Ye);
 
 
 %% Error
 error_obs = Yk - Ye;
-
-Yk
-Uk
-
 
 output = [Uk; error_obs];
 end

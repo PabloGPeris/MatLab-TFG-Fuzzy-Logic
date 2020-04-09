@@ -1,4 +1,4 @@
-%% 3 EstadosTanque
+%% 3 Estados Tanque (Modelo discreto del tanque)
 
 clearvars
 clc
@@ -9,6 +9,7 @@ format shortG
 addpath('..\..\Funciones');
 
 load datosIdentificacion
+% load('..\2_Borroso\datosIdentificacionTS.mat');
 %% Caudal
 %En este caso Q(k) = pQ(1) + pQ(2)Q(k-1) + pQ(3)Q(k-2) + pQ(4)U1(k-5) +
 %pQ(5)U1(k-6) + pQ(6)U2(k-4) + pQ(7)U2(k-5)

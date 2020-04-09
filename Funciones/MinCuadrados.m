@@ -27,7 +27,7 @@ end
 
 %Hacer la matriz phi y los parámetros
 n = size(Y, 1);
-phi = PhiMatrix(Y, Y, orden);
+phi = PhiMatrix(U, Y, orden);
 Yr = Y(orden + 1 : n);
 
 param = phi\Yr;
