@@ -62,8 +62,8 @@ classdef FuzzySet
         end
         
         function outputArg = Fuzzification(obj, inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
+            %FUZZIFICATION(obj, inputArg) Borrosifica el argumento de
+            %entrada según el FuzzySet
             outputArg = zeros(1,length(obj.vertex));
             for i = 1:length(obj.vertex)
                 switch obj.func(i).type

@@ -1,5 +1,5 @@
 function [A, B, C, D, ax, ay] = C_Observable_MISO(a, b, a0, b0)
-%C_CONTROLABLE_MISO(a, b, a0, b0) Crea las matrices del modelo de estados de la 
+%C_OBSERVABLE_MISO(a, b, a0, b0) Crea las matrices del modelo de estados de la 
 %forma canónica observable
 %
 %Se tiene en cuenta que a1 se corresponde con Yz^(n-1), a2 con Yz^(n-2),

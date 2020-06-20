@@ -1,5 +1,5 @@
 function output = ControlDiscretoRealimentado(Yr, Yk, Sat)
-%CONTROLADORDISCRETOREALIMENTADO Controlador discreto de un sistema
+%CONTROLDISCRETOREALIMENTADO Controlador discreto de un sistema
 %   Sat = [U1min U1max; ...; Unmin Unmax]
 
 global A B C K H ax ay M Xek;

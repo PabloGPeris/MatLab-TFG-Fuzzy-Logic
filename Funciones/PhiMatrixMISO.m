@@ -1,4 +1,4 @@
-function [Phi, Yr] = PhiMatrixMISO(Y, U, format, Vb)
+function [Phi, Yr] = PhiMatrixMISO(Y, U, format)
 %PHIMATRIXMISO(Y, [U(1) ... U(N)], format)
 %   Matriz X (Phi) del Takagi-Sugeno
 %

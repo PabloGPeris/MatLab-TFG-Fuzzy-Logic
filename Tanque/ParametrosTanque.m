@@ -1,5 +1,8 @@
 %% 0 - Parámetros del tanque
 
+tmuestra = 0.5;
+
+
 Area = 1;
 alpha = 1;
 T1 = 90;

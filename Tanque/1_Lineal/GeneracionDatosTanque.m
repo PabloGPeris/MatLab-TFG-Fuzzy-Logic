@@ -11,7 +11,6 @@ addpath('..\');
 
 %% Parámetros de simulación
 tsim = 5000;
-tmuestra = 0.5;
 tvar1 = 23;
 tvar2 = 24;
 

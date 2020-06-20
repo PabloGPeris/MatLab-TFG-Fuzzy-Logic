@@ -55,8 +55,8 @@ if size(format,1) ~= nU + 1
     error('format debe ser una matriz de tamaño (número de entradas + 1 ) x (orden máximo)');
 end
 
-if length(FSet) ~= nV + 1
-    error('FSet debe ser un vector de FuzzySet de longitud (número de variables borrosas adicionales + 1 (salida))');
+if length(FSet) ~= nV
+    error('FSet debe ser un vector de FuzzySet de longitud (número de variables borrosas)');
 end
 
 %% Inicialización
@@ -64,7 +64,7 @@ end
 num_columnas = sum(format, 'all');
 num_filas = n - orden;
 num_pesos = 1;
-for i = 1:nV + 1
+for i = 1:nV
    num_pesos = num_pesos * FSet(i).FSLength; 
 end
 num_columnas_ampliado = num_columnas * num_pesos;
@@ -73,7 +73,7 @@ num_columnas_ampliado = num_columnas * num_pesos;
 Phi = zeros(num_filas, num_columnas_ampliado);
 Yr = Y(orden + 1:end, 1);
 row = zeros(1, num_columnas);
-mu = cell(1,nV + 1);
+mu = cell(1,nV);
 
 %% Creación de la matriz
 for i = 1:num_filas % i = fila
@@ -103,9 +103,8 @@ for i = 1:num_filas % i = fila
         end
     end
     
-    mu{1} = Fuzzification(FSet(1), Y(orden + i));
     for m = 1:nV
-        mu{m+1} = Fuzzification(FSet(m+1), Vb(orden + i, m));
+        mu{m} = Fuzzification(FSet(m), Vb(orden + i - 1, m));
     end
     w = kron_m(mu{:});
     Phi(i,:) = kron(w,row);

@@ -10,9 +10,9 @@ addpath('..\..\Funciones');
 addpath('..\');
 
 %% Parámetros de simulación
-n_sim = 1;
-tsim = 6000;
-tmuestra = 0.5;
+n_sim = 3;
+tsim = 50000;
+% tmuestra = 0.5;
 tvar1 = 23;
 tvar2 = 24;
 
@@ -44,6 +44,7 @@ U = cell(1,n_sim);
 T = cell(1,n_sim);
 Q1 = cell(1,n_sim);
 Q2 = cell(1,n_sim);
+Vb = cell(1,n_sim);
 
 for i = 1:n_sim
     Qm{i} = out(i).Qm(:,2);
@@ -53,12 +54,13 @@ for i = 1:n_sim
     T{i} = out(i).T(:,2);
     Q1{i} = out(i).Q1(:,2);
     Q2{i} = out(i).Q2(:,2);
+    Vb{i} = [out(i).Qm(:,2) out(i).T(:,2)];
 end
 
-save datosGeneracionTS U Qm T
+save datosGeneracionTS U Qm T Vb
 
 %% Simulación - gráficas
-tiempo = [0:tmuestra:tsim]';
+tiempo = (0:tmuestra:tsim)';
 % for i = 1:n_sim
 % 
 %     figure; plot(tiempo, Qm{i}, tiempo, Q1{i}, tiempo, Q2{i}); title('Caudal');

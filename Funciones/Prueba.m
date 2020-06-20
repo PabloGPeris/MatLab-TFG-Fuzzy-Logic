@@ -23,10 +23,10 @@ arg2 = FuzzySet.format(arg{:}); %Lo pasa a un formato listo para el constructor
 %      /  \
 % ____/    \____
 % Pi - 'P'
-%        ___
-%       /   \
-%      /     \
-% ____/       \____
+%       ___
+%      /   \
+%     /     \
+% ___/       \___
 F = FuzzySet(arg2{:});
 
 x = -4:.1:4;
