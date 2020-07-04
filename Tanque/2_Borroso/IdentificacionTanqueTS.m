@@ -13,11 +13,13 @@ load datosGeneracionTS
 %% Previo
 
 % reglasQ = {1 4 7};
-reglasQ = {1 1.5 2 3 4 5 6 7};
+% reglasQ = {1 1.5 2 3 4 5 6 7}; % normal
+reglasQ = {1 2 4}; % incremental
 reglasQ = FuzzySet.format(reglasQ{:});
 
-reglasT = {25 [30 40] [45 55] [60 70] 75};
-% reglasT = {50};
+% reglasT = {25 [30 40] [45 55] [60 70] 75}; % normal - ahora también incremental
+reglasT = {20 35 50 65 80}; % incremental
+% reglasT = {20 50 80};
 reglasT = FuzzySet.format(reglasT{:});
 
 FuzzySetQ = FuzzySet(reglasQ{:});

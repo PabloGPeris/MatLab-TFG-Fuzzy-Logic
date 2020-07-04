@@ -11,7 +11,9 @@ addpath('..\');
 
 global A B C K_ H Uk1 Yk1 DeltaXek
 
-load datosEstadosTS
+% load datosEstadosTSIncremental
+load datosEstadosTSPrevio
+% load datosEstadosTS
 
 %% Inicio
 N = FuzzySetQ.FSLength*FuzzySetT.FSLength; %número de reglas
@@ -84,7 +86,7 @@ DeltaXek = zeros(length(A{1}),1);
 tsim = 150;
 ParametrosTanque;
 
-Yr = [1.2; 72] %#ok<*NOPTS>
+Yr = [0.6; 70] %#ok<*NOPTS>
 
 % Real
 load_system('SimulacionTanqueControlado');

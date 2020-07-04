@@ -36,8 +36,8 @@ K_ = dlqr(A_, B_, Q, R);
 %% Parámetros iniciales y matriz M
 
 % parámetros iniciales
-Qi = 4;
-Ti = 70;
+Qi = 3;
+Ti = 35;
 Y0 = [Qi; Ti];
 
 % matriz M (para el Ur)
@@ -57,7 +57,7 @@ tsim = 100;
 ParametrosTanque;
 
 
-Yr = [4; 70] %#ok<*NOPTS>
+Yr = [5; 65] %#ok<*NOPTS>
 
 % Real
 load_system('SimulacionTanqueControlado');
@@ -70,8 +70,10 @@ sim('SimulacionTanqueControlado');
 %% Simulación - gráficas
 tiempo = 0:tmuestra:tsim;
 %figure; plot(tiempo, lqrError(:,2)); title('Error');
-figure; plot(tiempo, Qm(:, 2), '-', tiempo, Q1(:,2), '-', tiempo, Q2(:,2), '-', tiempo, Ref(:,2), '--'); title('Caudal');
+figure; 
+subplot(2,1,1);
+plot(tiempo, Qm(:, 2), '-', tiempo, Q1(:,2), '-', tiempo, Q2(:,2), '-', tiempo, Ref(:,2), '--'); title('Caudal');
 ylim([0 8]);
-figure; plot(tiempo, T(:, 2), '-', tiempo, Ref(:,3), '--'); title('Temperatura');
+subplot(2,1,2);
+plot(tiempo, T(:, 2), '-', tiempo, Ref(:,3), '--'); title('Temperatura');
 ylim([10 90]);
-% figure; plot(tiempo, lqrX(:, 2), tiempo, lqrYr(:,2)); title('Posición');

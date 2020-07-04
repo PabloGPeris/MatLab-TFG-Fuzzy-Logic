@@ -12,6 +12,7 @@ addpath('..\');
 global A B C K H ax ay M Xek
 
 load datosEstadosTS
+% load datosEstadosTSPrevio
 
 %% Inicio
 N = FuzzySetQ.FSLength*FuzzySetT.FSLength; %número de reglas
@@ -69,7 +70,7 @@ Ui = resul(length(A{1})+1:end);
 tsim = 150;
 ParametrosTanque;
 
-Yr = [1.2; 72] %#ok<*NOPTS>
+Yr = [0.6; 70] %#ok<*NOPTS>
 
 % Real
 load_system('SimulacionTanqueControlado');
