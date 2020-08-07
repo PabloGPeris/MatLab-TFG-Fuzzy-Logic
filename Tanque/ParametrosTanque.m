@@ -16,3 +16,6 @@ tau2 = 4;
 tdelay1 = 2 * tmuestra;
 tdelay2 = tmuestra;
 tdelayQ = tmuestra;
+
+% save ParametrosTanque tmuestra alpha T1 T2 Te Kp K1 K2 tau1 tau2 ...
+%     tdelay1 tdelay2 tdelayQ

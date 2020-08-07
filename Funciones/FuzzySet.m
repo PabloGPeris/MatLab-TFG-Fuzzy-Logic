@@ -1,6 +1,6 @@
 classdef FuzzySet
-    %FUZZYSET Summary of this class goes here
-    %   Detailed explanation goes here
+    %FUZZYSET (t1,v1, ...tn,vn) 
+    %   Conjunto borroso que define el número de reglas en el espacio
 
     properties
         vertex
@@ -104,8 +104,12 @@ classdef FuzzySet
     
     methods(Static)
     	function outputArg = format(varargin)
-            %FUZZYSET Constructor de FuzzySet
-            %   Detailed explanation goes here 
+            %FUZZYSET ({c1} {c2} ... {cn})
+            %   Permite transformar formato simple simple en el formato
+            %   correcto para el constructor de FuzzySet.
+            %   Por ejemplo, transforma 1 [2 3] 4 5, mediante 
+            %   FuzzySet.format(1, [2 3], 4, 5) en 
+            %   [{'L'} {[1]} {'P'} {[2 3]} {'D'} {[4]} {'G'} {[5]}]
             if nargin == 1
                 outputArg{1} = '-';
                 outputArg{2} = 0;

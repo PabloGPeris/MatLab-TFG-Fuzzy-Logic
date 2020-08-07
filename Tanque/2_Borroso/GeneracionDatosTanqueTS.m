@@ -10,16 +10,19 @@ addpath('..\..\Funciones');
 addpath('..\');
 
 %% Parámetros de simulación
+
+
 n_sim = 3;
 tsim = 50000;
-% tmuestra = 0.5;
+tmuestra = 0.5;
 tvar1 = 23;
 tvar2 = 24;
 
-ParametrosTanque
-
 seed = abs(randi(2^32-1,[n_sim 4]));
 
+save ..\ParametrosSimulacion tsim tvar1 tvar2
+
+%% Carga del sistema
 load_system('SimulacionTanque');
 
 for i = 1:n_sim
@@ -31,7 +34,7 @@ for i = 1:n_sim
 end
 
 
-
+% sim('SimulacionTanque');
 
 %% Simulación
 out = parsim(simulacion, 'ShowProgress', 'on');

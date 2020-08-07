@@ -1,5 +1,5 @@
 function [Phi, Yr] = FuzzyPhiMatrixMISO(Y, U, format, Vb, FSet)
-%PHIMATRIXMISO(Y, [U(1) ... U(N)], format)
+%PHIMATRIXMISO(Y, [U(1) ... U(N)], format, Vb, FSet)
 %   Matriz Phi de los mínimos cuadrados
 %
 %   Ecuación del tipo y(k) = a0 + a1y(k-1) + ... + aoy(k-o) + b1u(1)(k-1) +
@@ -18,7 +18,12 @@ function [Phi, Yr] = FuzzyPhiMatrixMISO(Y, U, format, Vb, FSet)
 %   máximo) que en cada fila indica cuáles son los parámetros a considerar.
 %   La primera fila son a0 a1 ... an, y las siguientes b10 b11 ... b1n, b20
 %   b21 ... b2n, etcétera, indicando 1 si se quiere y 0 si no.
-
+%
+%   Vb es el vector (o vectores, en modo matricial (no cell)) de variables
+%   borrosas que se usan en la identificación.
+%
+%   FSet es el vector de FuzzySets correspondientes a cada variable
+%   borrosa.
 %% Inicio
 % Y columna, U columna x n
 
