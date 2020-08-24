@@ -8,7 +8,9 @@ format shortG
 
 addpath('..\..\Funciones');
 
-load datosIdentificacionPolar % normal
+load datosIdentificacionPolar % no inc de verdad
+% load datosIdentificacionPolar2
+% load datosIdentificacionPolar3 % inc
 % load('..\2_Borroso\datosIdentificacionTS.mat');
 
 %% Inicio
@@ -54,7 +56,6 @@ for i = 1:N
     ay{i} = [ayQ; ayT];
 end
 
-
-% save datosEstadosTS A B C ax ay FuzzySetQ FuzzySetT
-% save datosEstadosTSIncremental A B C ax ay FuzzySetQ FuzzySetT
-save datosEstadosPolar A B C ax ay FuzzySetMod FuzzySetArg
+%%
+% save datosEstadosPolar A B C ax ay FuzzySetMod FuzzySetArg
+% save datosEstadosPolarIncremental A B C ax ay FuzzySetMod FuzzySetArg

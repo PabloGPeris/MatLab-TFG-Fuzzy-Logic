@@ -94,7 +94,7 @@ classdef FuzzySet
             for i = 1:(nintervalos + 1)
                 grafica(:,i) = (Fuzzification(obj, x(i)))';
             end
-            figure;
+%             figure;
             for j = 1:nv
                 plot(x, grafica(j,:));
                 hold on;

@@ -51,7 +51,6 @@ for i = 1:N
     ay{i} = [ayQ; ayT]
 end
 
-
+%% Salvar datos
 % save datosEstadosTS A B C ax ay FuzzySetQ FuzzySetT
 % save datosEstadosTSIncremental A B C ax ay FuzzySetQ FuzzySetT
-save datosEstadosTSPrevio A B C ax ay FuzzySetQ FuzzySetT

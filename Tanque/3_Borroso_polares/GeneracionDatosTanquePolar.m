@@ -11,17 +11,13 @@ addpath('..\');
 
 %% Parámetros de simulación
 
-
 n_sim = 3;
 tsim = 50000;
 tmuestra = 0.5;
 tvar1 = 23;
 tvar2 = 24;
 
-
-
 seed = abs(randi(2^32-1,[n_sim 4]));
-
 
 save ..\ParametrosSimulacion tsim tvar1 tvar2
 %% Carga del sistema
@@ -59,16 +55,26 @@ for i = 1:n_sim
     T{i} = out(i).T(:,2);
     Q1{i} = out(i).Q1(:,2);
     Q2{i} = out(i).Q2(:,2);
+end
+
+%% Normalización
+mediaQ = mean(Qm{1});
+stdQ = std(Qm{1});
+mediaT = mean(T{1});
+stdT = std(T{1});
+
+for i = 1:n_sim
+
     
     Qnorm = Normalizacion(Qm{i}, 'rango', 0, 8);
-    Tnorm = Normalizacion(T{i}, 'rango', 10, 90);
+    Tnorm = Normalizacion(T{i}, 'normal', 10, 90);
     [theta,rho] = cart2pol(Qnorm,Tnorm);
     
     Vb{i} = [theta rho];
 end
 
-save datosGeneracionPolar U Qm T Vb
-
+save datosGeneracionPolar U Qm T Vb mediaQ stdQ mediaT stdT
+% save datosGeneracionPolar2 U Qm T Vb mediaQ stdQ mediaT stdT
 %% Simulación - gráficas
 tiempo = (0:tmuestra:tsim)';
 % for i = 1:n_sim
@@ -87,7 +93,16 @@ title('Q - T');
 %%
 figure;
 for i = 1:n_sim
-    plot(Vb{i}(:,1), Vb{i}(:,2), '*')
+    plot(Vb{i}(:,2), Vb{i}(:,1), '*')
     hold on;
 end
 title('theta - rho');
+
+%%
+
+figure;
+for i = 1:n_sim
+    plot(Qnorm, Tnorm, '*')
+    hold on;
+end
+title('Q - T');
